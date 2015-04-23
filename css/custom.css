@@ -1,0 +1,24 @@
+#formControls input,
+#minor_operating input,
+#gross_operating_form input,
+#total_sales_form input,
+#gross_operating_income input,
+#income_before_fixed_charges input,
+#pbt input,
+#fnbdep input,
+#expenses_group input,
+#EBIDAT input,
+#profit_loss input,
+#assumption_form input,
+#kpis_form input
+{
+    text-align: right;
+}
+.input-group-left {
+  float: left;
+  padding-left: 0;
+  padding-right: 0;
+}
+.input-group-left{position:relative;display:table;border-collapse:separate}
+.input-group-left[class*=col-]{float:left;padding-left:0;padding-right:10px}
+.input-group-left .form-control{float:left;width:100%;margin-bottom:0}
