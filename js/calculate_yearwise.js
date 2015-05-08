@@ -498,7 +498,7 @@ $(' #food_sales_percent_2009 ').val(food_sales_percent.toFixed(2));
 //
 var total_sales_all_dep, beverage_sales, beverage_sales_percent;
 total_sales_all_dep = $(' #total_sales_all_dep_2009 ').val();
-beverage_sales = $(' #food_sales_2009 ').val();
+beverage_sales = $(' #beverage_sales_2009 ').val();
 //alert(bin1); alert(bin2);
 //bin2 = $(' #Bin1_Count option:selected ').val();
 beverage_sales_percent = (parseFloat(beverage_sales) / parseFloat(total_sales_all_dep) ) * 100;
@@ -507,7 +507,7 @@ $(' #beverage_sales_percent_2009 ').val(beverage_sales_percent.toFixed(2));
 //
 var total_sales_all_dep, fnb_other_income, fnb_other_income_percent;
 total_sales_all_dep = $(' #total_sales_all_dep_2009 ').val();
-fnb_other_income = $(' #food_sales_2009 ').val();
+fnb_other_income = $(' #fnb_other_income_2009 ').val();
 //alert(bin1); alert(bin2);
 //bin2 = $(' #Bin1_Count option:selected ').val();
 fnb_other_income_percent = (parseFloat(fnb_other_income) / parseFloat(total_sales_all_dep) ) * 100;

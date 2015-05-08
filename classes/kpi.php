@@ -67,7 +67,7 @@ class kpi {
         if (!$this->db_connection->connect_errno) {
             $kpis_year = array();
             //print_r($_SESSION); exit;
-            $year_sql = "SELECT * FROM `years` WHERE year = ".$year;
+            $year_sql = "SELECT * FROM `years` WHERE year = ".$year." AND branch_id = ".$_SESSION['branch_id'];
             $result_kpi_year = $this->db_connection->query($year_sql);
             $year_rec = $result_kpi_year->fetch_object();
             $year_id = $year_rec->id;
@@ -120,8 +120,8 @@ class kpi {
                     . "total_payroll = '$total_payroll', "
                     . "total_number_of_employees = '$total_number_of_employees', "
                     . "precentage_revenue = '$precentage_revenue' "
-                    . "WHERE branch_id = ".$branch_id;
-            // echo $sql; exit;
+                    . "WHERE id = ".$id." AND branch_id = ".$branch_id;
+            //echo $sql; exit;
             $query_new_user_update = $this->db_connection->query($sql);
             if ($query_new_user_update) {
                 $this->messages[] = "KPI's updated successfully. ";
@@ -191,7 +191,7 @@ class kpi {
         }
         // if no connection errors (= working database connection)
         if (!$this->db_connection->connect_errno) {
-            $sql = "INSERT INTO `years` (year) VALUES ('$year')";
+            $sql = "INSERT INTO `years` (year, branch_id) VALUES ('$year', ".$_SESSION['branch_id']." )";
             $rs_insert = $this->db_connection->query($sql);
             $year_id = $this->db_connection->insert_id;
             return $year_id;
@@ -218,6 +218,51 @@ class kpi {
             return $years;
         } else {
             $this->errors[] = "Sorry, no database connection.";
+        }
+    }
+    function getNextYears() {
+        $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->errors[] = $this->db_connection->error;
+        }
+        // if no connection errors (= working database connection)
+        if (!$this->db_connection->connect_errno) {
+            $year = $years = array();
+            $sql = "SELECT year FROM `years` WHERE branch_id  = ".$_SESSION['branch_id']." ORDER BY `years`.`id` DESC LIMIT 0, 1";
+            $rs = $this->db_connection->query($sql);
+            $last_year = $rs->fetch_object()->year; 
+            $select = "";
+            $select = "<select size='1' class='form-control' id='kpi_year' name='kpi_year' aria-controls='example-table'>"
+                    . "<option value='".($last_year+1)."' >".($last_year+1)."</option>"
+                    . "<option value='".($last_year+1)."' >".($last_year+2)."</option>"
+                    . "<option value='".($last_year+1)."' >".($last_year+3)."</option>"
+                    . "<option value='".($last_year+1)."' >".($last_year+4)."</option>"
+                    . "<option value='".($last_year+1)."' >".($last_year+5)."</option>"
+                    . "</select> ";
+            return $select;
+        } else {
+            $this->errors[] = "Sorry, no database connection.";
+        }
+    }
+    function getLatestKpi() {
+        $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->errors[] = $this->db_connection->error;
+        }
+        // if no connection errors (= working database connection)
+        if (!$this->db_connection->connect_errno) {
+            $kpis_year = array();
+            //print_r($_SESSION); exit;
+            $sql = "SELECT id FROM `years` WHERE branch_id  = ".$_SESSION['branch_id']." ORDER BY `years`.`id` DESC LIMIT 0, 1";
+            $rs = $this->db_connection->query($sql);
+            $year_id = $rs->fetch_object()->id; 
+            $sql_year_based = "SELECT * FROM `kpi` WHERE branch_id = ".$_SESSION['branch_id'] ." AND year_id = ".$year_id;
+            $query_get_kpi_y = $this->db_connection->query($sql_year_based);
+            while ($data_year = $query_get_kpi_y->fetch_object()) {
+                $latest_kpis = $data_year;
+            }
+            //$employees = $query_get_guest_employees->fetch_all();
+            return $latest_kpis;
         }
     }
 }

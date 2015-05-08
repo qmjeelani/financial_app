@@ -20,6 +20,7 @@ if ($login->isUserLoggedIn() == true) {
     $heads = new Heads();
     if (isset($_POST['submit'])) {
         $kpi->addkpi();
+        $heads->addHeadValues();
     }
     include("views/addkpi.php");
 } else {

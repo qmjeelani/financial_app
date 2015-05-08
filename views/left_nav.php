@@ -70,6 +70,11 @@
                             <ul class="collapse nav in" id="tables">
                                 
                                 <li>
+                                    <a class="" href="dashboard.php">
+                                        <i class="fa fa-angle-double-right"></i> Dashboard
+                                    </a>
+                                </li>
+                                <li>
                                     <a class="" href="index.php">
                                         <i class="fa fa-angle-double-right"></i> KPI's
                                     </a>
@@ -82,6 +87,11 @@
                                 <li>
                                     <a  href="pnl.php">
                                         <i class="fa fa-angle-double-right"></i> Profit and Loss
+                                    </a>
+                                </li>
+                                <li>
+                                    <a  href="pnl_report.php">
+                                        <i class="fa fa-angle-double-right"></i> Profit and Loss Report
                                     </a>
                                 </li>
                                  </ul>

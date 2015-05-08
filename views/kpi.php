@@ -2,12 +2,12 @@
 <html lang="en">
 
     <head>
-
+        
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-
+        <title>Financial App</title>
         <link href="css/plugins/pace/pace.css" rel="stylesheet">
         <script src="js/plugins/pace/pace.js"></script>
 
@@ -52,14 +52,36 @@
 
         <div id="wrapper">
             <?php
-            include("views/top_nav.php");
+             include("views/top_nav.php");
             include("views/left_nav.php");
             $current_kpi = $kpi->getkpis();
-            $kpi_2009 = $kpi->getKPIbyYear('2009');
-            $branch_name =  $heads->getbranchbyid($_SESSION['branch_id']);
+            $current_assumptions = $assumption->getAssumptions();
+            //$kpi_2009 = $kpi->getKPIbyYear('2009');
+            $all_heads = $heads->getHeads();
+            foreach ($all_heads as $value) {
+                $head_id = $value->id;
+                $head_name = $value->name;
+                if ($head_name == 'Rooms Department') {
+                    $head_att = $heads->getHeadValues($head_id, '2014');
+                    $head_att_2009 = $heads->getHeadValues($head_id, '2015');
+                } else if ($head_name == 'Food & Beverage Department') {
+                    $head_att_fnb = $heads->getHeadValues($head_id, '2014');
+                    $head_att_fnb_2009 = $heads->getHeadValues($head_id, '2015');
+                } else if ($head_name == 'Minor Operating Department') {
+                    $head_att_min_op = $heads->getHeadValues($head_id, '2014');
+                    $head_att_min_op_2009 = $heads->getHeadValues($head_id, '2015');
+                } else if ($head_name == 'Undistributed Operating Expenses') {
+                    $head_att_expense = $heads->getHeadValues($head_id, '2014');
+                    $head_att_expense_2009 = $heads->getHeadValues($head_id, '2015');
+                } else if ($head_name == 'Head Office Charges') {
+                    $head_att_ho_charges = $heads->getHeadValues($head_id, '2014');
+                    $head_att_ho_charges_2009 = $heads->getHeadValues($head_id, '2015');
+                }
+            }
+            $branch_name = $heads->getbranchbyid($_SESSION['branch_id']);
             ?>
-            <!-- begin MAIN PAGE CONTENT -->
-            <div id="page-wrapper">
+                    <!-- begin MAIN PAGE CONTENT -->
+                    <div id="page-wrapper">
 
                 <div class="page-content">
 
@@ -68,7 +90,7 @@
                         <div class="col-lg-12">
                             <div class="page-title">
                                 <h1>KPI's
-                                    <small><?php  echo $branch_name->name ?></small>
+                                    <small><?php echo $branch_name->name ?></small>
                                     <!--<small>Table Options</small>-->
                                 </h1>
                                 <!--                            <ol class="breadcrumb">
@@ -105,223 +127,298 @@
                                 </div>
                                 <div id="kpis_form" class="panel-collapse collapse in">
                                     <div class="portlet-body">
-                                        <form role="form" action="index.php" method="post" id="kpi_form" name="kpi_form">
-                                            <div class="form-group">
+                                        <div class="form-group">
+                                            <?php
+                                            foreach ($current_kpi as $key => $value) {
+                                                ?>
+                                                <!--                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
+                                                                                                        <div class="col-sm-4">&nbsp;</div>
+                                                                                                       <div class="row"> <div class="col-sm-2" style="text-align: center"><label><?php echo $key ?></label></div></div>
+                                                                                                       <div class="row"> <div class="col-sm-2" style="text-align: center"><label><?php echo $value->total_rooms ?></label></div></div>
+                                                                                                       <div class="row"> <div class="col-sm-2" style="text-align: center"><label><?php echo $value->no_of_days ?></label></div></div>
+                                                                                                      <div class="row">  <div class="col-sm-2" style="text-align: center"><label><?php echo $value->rooms_vailable ?></label></div></div>
+                                                                                                        <div class="row"><div class="col-sm-2" style="text-align: center"><label><?php echo $value->rooms_occupied ?></label></div></div>
+                                                                                                      <div class="row">  <div class="col-sm-2" style="text-align: center"><label><?php echo $value->rooms_occupancy_precent ?></label></div></div>
+                                                                                                        <div class="row"><div class="col-sm-2" style="text-align: center"><label><?php echo $value->average_room_rate ?></label></div></div>
+                                                                                                       <div class="row"> <div class="col-sm-2" style="text-align: center"><label><?php echo $value->total_covers_food ?></label></div></div>
+                                                                                                     <div class="row">   <div class="col-sm-2" style="text-align: center"><label><?php echo $value->average_spend_food ?></label></div></div>
+                                                                                                     <div class="row">   <div class="col-sm-2" style="text-align: center"><label><?php echo $value->average_spend_beverages ?></label></div></div>
+                                                                                                       <div class="row"> <div class="col-sm-2" style="text-align: center"><label><?php echo $value->total_average_spend ?></label></div></div>
+                                                                                                        <div class="row"><div class="col-sm-2" style="text-align: center"><label><?php echo $value->total_payroll ?></label></div></div>
+                                                                                                        <div class="row"><div class="col-sm-2" style="text-align: center"><label><?php echo $value->total_number_of_employees ?></label></div></div>
+                                                                                                        <div class="row"><div class="col-sm-2" style="text-align: center"><label><?php echo $value->precentage_revenue ?></label></div></div>
+                                                                                                    </div>-->
+                                                <?php
+                                            }
+                                            ?>
                                                 
-                                               <?php 
-                                               foreach ($current_kpi as $key => $value) {
-                                                   print_r($value); exit;
-                                                   ?>
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4">&nbsp;</div>
-                                                        <div class="col-sm-2" style="text-align: center"><label><?php echo $key?></label></div>
-                                                        <div class="col-sm-2" style="text-align: center"><label><?php echo $key?></label></div>
-                                                    </div>
-                                                   <?php
-                                               }
-                                               ?>
-                                                
                                                 <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4">
-                                                            <label for="total_rooms" class="col-xs-8">Total Number of Rooms</label>
+                                                    <div class="col-sm-6">
+                                                        <div id="example-table_length" class="dataTables_length">
                                                         </div>
-                                                        <div class="col-sm-2">
-                                                            <input type="text" class="form-control" id="total_rooms" name="total_rooms" placeholder="Total Number of Rooms"  value="<?php  echo (!empty($current_kpi->total_rooms) ? $current_kpi->total_rooms : 'Total Number of Rooms'); ?>">
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <input type="text" class="form-control" id="total_rooms_2009" name="total_rooms_2009" placeholder="Total Number of Rooms"  value="<?php  echo (!empty($kpi_2009->total_rooms) ? $kpi_2009->total_rooms : 'Total Number of Rooms'); ?>">
-                                                        </div>
-                                                    </div>
-<!--                                                    <div class="col-sm-6">
-                                                        <label for="no_rooms" class="col-sm-6 control-label form-inline">Total Number of Rooms</label>
-                                                        <input type="text" class="form-control" placeholder=".col-sm-6">
-                                                    </div>-->
-
-<!--                                                    <div class="col-sm-6">
-                                                        <label for="no_days">Number of days</label>
-                                                        <input type="text" class="form-control" placeholder=".col-sm-6">
-                                                    </div>-->
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4">
-                                                            <label for="no_of_days" class="col-xs-8">Number of days</label>
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="no_of_days" name="no_of_days" placeholder="Number of days" value="<?php  echo (!empty($current_kpi->no_of_days) ? $current_kpi->no_of_days : 'Number of days'); ?>">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="no_of_days_2009" name="no_of_days_2009" placeholder="Number of days" value="<?php  echo (!empty($kpi_2009->no_of_days) ? $kpi_2009->no_of_days : 'Number of days'); ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                         <div class="col-sm-4">
-                                                             <label for="rooms_vailable" class="col-xs-8">Room Available
-                                                                 <br/>
-                                                             <small>(Number of Rooms  X Number of days)</small>
-                                                             </label>
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="rooms_vailable" name="rooms_vailable" placeholder="Room Available" value="<?php  echo (!empty($current_kpi->rooms_vailable) ? $current_kpi->rooms_vailable : 'Room Available'); ?>" readonly>
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="rooms_vailable_2009" name="rooms_vailable_2009" placeholder="Room Available" value="<?php  echo (!empty($kpi_2009->rooms_vailable) ? $kpi_2009->rooms_vailable : 'Room Available'); ?>" readonly>
-                                                        </div>
-                                                    </div>
-<!--                                                    <div class="col-sm-6">
-                                                        <label for="room_available">Room Available</label>
-                                                        <input type="text" class="form-control" placeholder=".col-sm-6">
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <label for="room_occupied">Room Occupied</label>
-                                                        <input type="text" class="form-control" placeholder=".col-sm-6">
-                                                    </div>-->
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4">
-                                                            <label for="rooms_occupancy_precent" class="col-xs-8">Room Occupancy Percentage</label>
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                                <input type="text" class="form-control" id="rooms_occupancy_precent" name="rooms_occupancy_precent" placeholder="Room Occupancy Percentage" value="<?php  echo (!empty($current_kpi->rooms_occupancy_precent) ? $current_kpi->rooms_occupancy_precent : 'Room Occupancy Percentage'); ?>">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                                <input type="text" class="form-control" id="rooms_occupancy_precent_2009" name="rooms_occupancy_precent_2009" placeholder="Room Occupancy Percentage_2009" value="<?php  echo (!empty($kpi_2009->rooms_occupancy_precent) ? $kpi_2009->rooms_occupancy_precent : 'Room Occupancy Percentage'); ?>">
-                                                        </div>
-                                                        </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4">
-                                                        <label for="rooms_occupied" class="col-xs-8">Room Occupied
-                                                        <br/>
-                                                        <small>(Room Available  X Room Occupany / 100)</small>
-                                                        </label>
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="rooms_occupied" name="rooms_occupied" placeholder="Room Occupied" value="<?php  echo (!empty($current_kpi->rooms_occupied) ? $current_kpi->rooms_occupied : 'Room Occupied'); ?>" readonly>
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="rooms_occupied_2009" name="rooms_occupied_2009" placeholder="Room Occupied" value="<?php  echo (!empty($kpi_2009->rooms_occupied) ? $kpi_2009->rooms_occupied : 'Room Occupied'); ?>" readonly>
-                                                        </div>
-                                                    </div>
-<!--                                                    <div class="col-sm-6">
-                                                        <label for="no_rooms">Room Occupany Precentage</label>
-                                                        <input type="text" class="form-control" placeholder=".col-sm-6">
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <label for="no_rooms">Average Room Rate</label>
-                                                        <input type="text" class="form-control" placeholder=".col-sm-6">
-                                                    </div>-->
-                                                </div>
-                                                
-                                                <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                         <div class="col-sm-4">
-                                                        <label for="average_room_rate" class="col-xs-8">Average Room Rate</label>
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="average_room_rate" name="average_room_rate" placeholder="Average Room Rate" value="<?php  echo (!empty($current_kpi->average_room_rate) ? $current_kpi->average_room_rate : 'Average Room Rate'); ?>">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="average_room_rate_2009" name="average_room_rate_2009" placeholder="Average Room Rate" value="<?php  echo (!empty($kpi_2009->average_room_rate) ? $kpi_2009->average_room_rate : 'Average Room Rate'); ?>">
+                                                        <div class="dataTables_filter" id="example-table_filter" style="float: right">
+                                                            <label><a href="addkpi.php"><button class="btn btn-default">Add KPI</button></a></label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4">
-                                                        <label for="total_covers_food" class="col-xs-8">Total Covers (Food)</label>
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="total_covers_food"  name="total_covers_food" placeholder="Total Covers (Food)" value="<?php  echo (!empty($current_kpi->total_covers_food) ? $current_kpi->total_covers_food : 'Total Covers (Food)'); ?>">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="total_covers_food_2009"  name="total_covers_food_2009" placeholder="Total Covers (Food)" value="<?php  echo (!empty($kpi_2009->total_covers_food) ? $kpi_2009->total_covers_food : 'Total Covers (Food)'); ?>">
-                                                        </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="table-responsive">
+                                                        <table id="example-table" class="table table-striped table-bordered table-hover table-green">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Attributes</th>
+                                                                    <?php
+                                                                    $pnl_check = FALSE;
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        $pnl_check = $pnl->checkPnlGenerated($key);
+                                                                        if($pnl_check) {
+                                                                            echo "<th> <a href='editkpi.php?year=$key'>$key</a> </td>";
+                                                                        } else {
+                                                                            echo "<th> <a href='editkpi.php?year=$key'>$key</a><br/>(<small><a href='pnl_generate.php?year=$key'>Generate PNL</a><small>) </td>";
+                                                                        }
+                                                                        
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Total Number of Rooms</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td class='left'> $value->total_rooms </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Number of days</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->no_of_days </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Room Available</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->rooms_vailable </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Room Occupied</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->rooms_occupied </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Room Occupancy Percentage</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->rooms_occupancy_precent </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Average Room Rate</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->average_room_rate </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Total Covers (Food)</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->total_covers_food </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Average Spend Food</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->average_spend_food </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Average Spend Beverages</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->average_spend_beverages </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Total Average Spend</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->total_average_spend </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Total Payroll</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->total_payroll </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Number of Employees</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->total_number_of_employees </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>% to Revenue</td>
+                                                                    <?php
+                                                                    foreach ($current_kpi as $key => $value) {
+                                                                        echo "<td> $value->precentage_revenue </td>";
+                                                                    }
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <?php
+                                                                    echo "<td colspan='2'> <strong>Assumptions</strong> </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Rate of inflation</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->inflation_rate% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Increase in food covers</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->increase_food_covers% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Increase in number of employees</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->employees_increase_no% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Increase in occupancy</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->occupancy_increase% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Increase in ARR</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->arr_increase% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Food cost</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->food_cost% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Beverage cost</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->beverage_cost% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>MOD Cost of Sale</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->mod_cost_of_sale% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Permit Room Cost of Sale</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->permit_room_cost_sale% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Sports & Recreation Cost of Sale</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->sports_recreation_cost_sale% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Interest on bank loan</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->interestbank_loan% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Depreciation</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->depreciation% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Taxation</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->taxation% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Amortization</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->amortization% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="odd gradeX">
+                                                                    <td>Wealth Tax</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->wealth_tax% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                                <tr class="even gradeX">
+                                                                    <td>Deferred Tax</td>
+                                                                    <?php
+                                                                    echo "<td> $current_assumptions->deferred_tax% </td>";
+                                                                    ?>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
+                                                    <!-- /.table-responsive -->
                                                 </div>
-                                                <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4"><label for="average_spend_food" class="col-xs-8">Average Spend Food</label></div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="average_spend_food" name="average_spend_food" placeholder="Average Spend Food" value="<?php  echo (!empty($current_kpi->average_spend_food) ? $current_kpi->average_spend_food : 'Average Spend Food'); ?>">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="average_spend_food_2009" name="average_spend_food_2009" placeholder="Average Spend Food" value="<?php  echo (!empty($kpi_2009->average_spend_food) ? $kpi_2009->average_spend_food : 'Average Spend Food'); ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4"><label for="average_spend_beverages" class="col-xs-8">Average Spend Beverages</label></div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="average_spend_beverages" name="average_spend_beverages" placeholder="Average Spend Beverages" value="<?php  echo (!empty($current_kpi->average_spend_beverages) ? $current_kpi->average_spend_beverages : 'Average Spend Beverages'); ?>">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="average_spend_beverages_2009" name="average_spend_beverages_2009" placeholder="Average Spend Beverages" value="<?php  echo (!empty($kpi_2009->average_spend_beverages) ? $kpi_2009->average_spend_beverages : 'Average Spend Beverages'); ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4"><label for="total_average_spend" class="col-xs-8">Total Average Spend
-                                                        <br/>
-                                                        <small>(Average Spend Food + Beverage)</small>
-                                                        </label></div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="total_average_spend" name="total_average_spend" placeholder="Total Average Spend" value="<?php  echo (!empty($current_kpi->total_average_spend) ? $current_kpi->total_average_spend : 'Total Average Spend'); ?>" readonly>
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="total_average_spend_2009" name="total_average_spend_2009" placeholder="Total Average Spend" value="<?php  echo (!empty($kpi_2009->total_average_spend) ? $kpi_2009->total_average_spend : 'Total Average Spend'); ?>" readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4"><label for="total_payroll" class="col-xs-8">Total Payroll</label></div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="total_payroll" name="total_payroll" placeholder="Total Payroll" value="<?php  echo (!empty($current_kpi->total_payroll) ? $current_kpi->total_payroll : 'Total Payroll'); ?>">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="total_payroll_2009" name="total_payroll_2009" placeholder="Total Payroll" value="<?php  echo (!empty($kpi_2009->total_payroll) ? $kpi_2009->total_payroll : 'Total Payroll'); ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4"><label for="total_number_of_employees" class="col-xs-8">Number of Employees</label></div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="total_number_of_employees" name="total_number_of_employees" placeholder="Number of Employees" value="<?php  echo (!empty($current_kpi->total_number_of_employees) ? $current_kpi->total_number_of_employees : 'Number of Employees'); ?>">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="total_number_of_employees_2009" name="total_number_of_employees_2009" placeholder="Number of Employees" value="<?php  echo (!empty($kpi_2009->total_number_of_employees) ? $kpi_2009->total_number_of_employees : 'Number of Employees'); ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-12">
-                                                        <div class="col-sm-4"><label for="precentage_revenue" class="col-xs-8">% to Revenue</label></div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="precentage_revenue" name="precentage_revenue" placeholder="% to Revenue" value="<?php  echo (!empty($current_kpi->precentage_revenue) ? $current_kpi->precentage_revenue : ''); ?>">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                            <input type="text" class="form-control" id="precentage_revenue_2009" name="precentage_revenue_2009" placeholder="% to Revenue" value="<?php  echo (!empty($kpi_2009->precentage_revenue) ? $kpi_2009->precentage_revenue : ''); ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <!-- /.col-lg-12 -->
+
                                             </div>
-                                            <div class="form-group">
-                                                <input type="hidden" id="kpi_rec_id" name="kpi_rec_id" value="<?php echo $current_kpi->id; ?>" />
-                                                <input type="hidden" id="kpi_branch_id" name="kpi_branch_id" value="<?php echo $_SESSION['branch_id']; ?>" />
-                                                        <button type="submit" name="submit" class="btn btn-default">Submit</button>
-                                                </div>
-                                            
-                                        </form>
+                                            <!-- /.row -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

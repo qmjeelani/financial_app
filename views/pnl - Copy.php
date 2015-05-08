@@ -88,10 +88,9 @@
                     </div>
                     <!-- /.row -->
                     <!-- end PAGE TITLE ROW -->
-                    <form class="form-horizontal" id="pnl_room" action="pnl.php" method="post" name="pnl_room" >
+
                 <!-- begin MAIN PAGE ROW -->
                 <div class="row">
-                    
 
                     <!-- begin LEFT COLUMN -->
                     <div class="col-lg-8">
@@ -137,12 +136,11 @@
                                     </div>
                                     <div id="formControls" class="panel-collapse collapse in">
                                         <div class="portlet-body">
-                                            
-                                            
+                                            <form class="form-horizontal" id="pnl_room" name="pnl_room" >
                                                 <div class="form-group">
                                                         <div class="col-sm-5">&nbsp;</div>
-                                                        <div class="col-sm-3" style="text-align: right"><label>2014</label></div>
-                                                        <div class="col-sm-4" style="text-align: center"><label>2015</label></div>
+                                                        <div class="col-sm-3" style="text-align: right"><label>2008</label></div>
+                                                        <div class="col-sm-4" style="text-align: center"><label>2009</label></div>
                                                 </div>
                                                 
                                                 <div class="form-group">
@@ -166,19 +164,19 @@
                                                 <div class="form-group">
                                                     <label for="sales" class="col-sm-6 control-label">Sales</label>
                                                     <div class="col-sm-3">
-                                                        <input type="text" class="form-control" name="sales" id="sales" placeholder="Placeholder Text" readonly>
+                                                        <input type="text" class="form-control" id="sales" placeholder="Placeholder Text" readonly>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <input type="text" class="form-control" name="sales_2009" id="sales_2009" placeholder="Placeholder Text" readonly>
+                                                        <input type="text" class="form-control" id="sales_2009" placeholder="Placeholder Text" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="sales_precentage" class="col-sm-6 control-label">Sales (%)</label>
                                                     <div class="col-sm-3">
-                                                        <input type="text" class="form-control" name="sales_precentage" id="sales_precentage" placeholder="Placeholder Text" readonly>
+                                                        <input type="text" class="form-control" id="sales_precentage" placeholder="Placeholder Text" readonly>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <input type="text" class="form-control" name="sales_precentage_2009" id="sales_precentage_2009" placeholder="Placeholder Text" readonly>
+                                                        <input type="text" class="form-control" id="sales_precentage_2009" placeholder="Placeholder Text" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -187,7 +185,7 @@
                                                         <input type="text" class="form-control" id="payroll_expense_percent" name="payroll_expense_percent" placeholder="Placeholder Text" value="<?php  echo (($head_att[0]->attribute == 'Payroll & Related Expenses') ? $head_att[0]->value : ''); ?>" >
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <input type="text" class="form-control"  id="payroll_expense_percent_2009" name="payroll_expense_percent_2009" placeholder="Placeholder Text" value="<?php  echo (($head_att_2009[0]->attribute == 'Payroll & Related Expenses') ? $head_att_2009[0]->value : ''); ?>" >
+                                                        <input type="text" class="form-control" id="payroll_expense_percent_2009" name="payroll_expense_percent_2009" placeholder="Placeholder Text" value="<?php  echo (($head_att_2009[0]->attribute == 'Payroll & Related Expenses') ? $head_att_2009[0]->value : ''); ?>" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -244,9 +242,10 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label"></label>
                                                     <div class="col-sm-10">
-                                                        <button type="submit" name="submit" id="submit" class="btn btn-default">Submit</button>
+                                                        <button type="submit" class="btn btn-default">Submit</button>
                                                     </div>
                                                 </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -264,11 +263,11 @@
                                     </div>
                                     <div id="fnbdep" class="panel-collapse collapse in">
                                         <div class="portlet-body">
-                                            <!--<form class="form-horizontal">-->
+                                            <form class="form-horizontal">
                                                 <div class="form-group">
                                                         <div class="col-sm-5">&nbsp;</div>
-                                                        <div class="col-sm-3" style="text-align: right"><label>2014</label></div>
-                                                        <div class="col-sm-4" style="text-align: center"><label>2015</label></div>
+                                                        <div class="col-sm-3" style="text-align: right"><label>2008</label></div>
+                                                        <div class="col-sm-4" style="text-align: center"><label>2009</label></div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="total_cover" class="col-sm-6 control-label">Total Covers (Food)</label>
@@ -497,7 +496,7 @@
                                                         <button type="submit" class="btn btn-default">Submit</button>
                                                     </div>
                                                 </div>
-                                            <!--</form>-->
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -516,7 +515,7 @@
                                     <div id="minor_operating" class="panel-collapse collapse in">
                                         <div class="portlet-body">
                                             <?php //$head_att_min_op = $heads->getHeadValues(3); ?>
-                                            <!--<form class="form-horizontal" id="minor_operating" name="minor_operating" >-->
+                                            <form class="form-horizontal" id="minor_operating" name="minor_operating" >
                                                 <div class="form-group">
                                                     <label for="min_op_sales" class="col-sm-6 control-label">Sales</label>
                                                         <div class="col-sm-3">
@@ -635,7 +634,7 @@
                                                         <button type="submit" class="btn btn-default">Submit</button>
                                                     </div>
                                                 </div>
-<!--                                            </form>-->
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -652,7 +651,7 @@
                                     </div>
                                     <div id="gross_operating_form" class="panel-collapse collapse in">
                                         <div class="portlet-body">
-                                            <!--<form class="form-horizontal" id="gross_operating_form" name="gross_operating_form" role="form">-->
+                                            <form class="form-horizontal" id="gross_operating_form" name="gross_operating_form" role="form">
                                                 <div class="form-group">
                                                     <label for="rental_other_income" class="col-sm-6 control-label">Rental & Other Income</label>
                                                         <div class="col-sm-3">
@@ -692,7 +691,7 @@
                                                         </div>
                                                 </div>
                                                 <!--<button type="submit" class="btn btn-default">Sign in</button>-->
-<!--                                            </form>-->
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -713,7 +712,7 @@
                                     </div>
                                     <div id="total_sales_form" class="panel-collapse collapse in">
                                         <div class="portlet-body">
-                                            <!--<form class="form-horizontal" id="total_sales_form" name="total_sales_form" role="form">-->
+                                            <form class="form-horizontal" id="total_sales_form" name="total_sales_form" role="form">
                                                 <div class="form-group">
                                                     <label for="total_sales_all_dep" class="col-sm-6 control-label">Total Sales <br><small>(Sales of all department)</small></label>
                                                         <div class="col-sm-3">
@@ -724,7 +723,7 @@
                                                         </div>
                                                 </div>
                                                 <!--<button type="submit" class="btn btn-default">Sign in</button>-->
-<!--                                            </form>-->
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -742,7 +741,7 @@
                                     </div>
                                     <div id="gross_operating_income" class="panel-collapse collapse in">
                                         <div class="portlet-body">
-                                            <!--<form class="form-horizontal" id="gross_operating_income" name="gross_operating_income" role="form">-->
+                                            <form class="form-horizontal" id="gross_operating_income" name="gross_operating_income" role="form">
                                                 <div class="form-group">
                                                     <label for="total_gross_income" class="col-sm-6 control-label">Gross Income <br><small>(Income of all department)</small></label>
                                                         <div class="col-sm-3">
@@ -762,7 +761,7 @@
                                                         </div>
                                                 </div>
                                                 <!--<button type="submit" class="btn btn-default">Sign in</button>-->
-<!--                                            </form>-->
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -779,7 +778,7 @@
                                     </div>
                                     <div id="expenses_group" class="panel-collapse collapse in">
                                         <div class="portlet-body">
-                                            <!--<form class="form-horizontal" id="expenses_group" name="expenses_group">-->
+                                            <form class="form-horizontal" id="expenses_group" name="expenses_group">
                                                 <div class="form-group">
                                                     <label for="hotel_admin_general" class="col-sm-6 control-label">Hotel Admin & General</label>
                                                     <div class="col-sm-3">
@@ -870,7 +869,7 @@
                                                         <input type="text" class="form-control" id="real_estate_taxes_calc_2009" name="real_estate_taxes_calc_2009" placeholder="Hotel Admin & General" readonly>
                                                     </div>
                                                 </div>
-<!--                                                </form>-->
+                                                </form>
                                         </div>
                                     </div>
                                 </div>
@@ -888,7 +887,7 @@
                                     </div>
                                     <div id="EBIDAT" class="panel-collapse collapse in">
                                         <div class="portlet-body">
-                                            <!--<form class="form-horizontal" id="EBIDAT" name="EBIDAT" role="form">-->
+                                            <form class="form-horizontal" id="EBIDAT" name="EBIDAT" role="form">
                                                 <div class="form-group">
                                                     <label for="admin_finance_ho" class="col-sm-6 control-label">Admin & Finance (H.O) </label>
                                                         <div class="col-sm-3">
@@ -971,7 +970,7 @@
                                                         </div>
                                                 </div>
                                                 <!--<button type="submit" class="btn btn-default">Sign in</button>-->
-<!--                                            </form>-->
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -988,7 +987,7 @@
                                     </div>
                                     <div id="income_before_fixed_charges" class="panel-collapse collapse in">
                                         <div class="portlet-body">
-<!--                                            <form class="form-horizontal" id="income_before_fixed_charges" name="income_before_fixed_charges" role="form">-->
+                                            <form class="form-horizontal" id="income_before_fixed_charges" name="income_before_fixed_charges" role="form">
                                                 <div class="form-group">
                                                     <label for="income_bef_fix_charges" class="col-sm-6 control-label">IBFC <br><small>(Income -  All Expenses)</small></label>
                                                         <div class="col-sm-3">
@@ -999,7 +998,7 @@
                                                         </div>
                                                 </div>
                                                 <!--<button type="submit" class="btn btn-default">Sign in</button>-->
-<!--                                            </form>-->
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -1020,7 +1019,7 @@
                                     </div>
                                     <div id="pbt" class="panel-collapse collapse in">
                                         <div class="portlet-body">
-                                            <!--<form class="form-horizontal" id="pbt" name="pbt" role="form">-->
+                                            <form class="form-horizontal" id="pbt" name="pbt" role="form">
                                                 <div class="form-group">
                                                     <label for="depreciation_field" class="col-sm-6 control-label">Depreciation<br><small>(From Assumptions)</small></label>
                                                         <div class="col-sm-3 input-group">
@@ -1072,7 +1071,7 @@
                                                         </div>
                                                 </div>
                                                 <!--<button type="submit" class="btn btn-default">Sign in</button>-->
-<!--                                            </form>-->
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -1149,7 +1148,7 @@
                                     </div>
                                     <div id="profit_loss" class="panel-collapse collapse in">
                                         <div class="portlet-body">
-                                            <!--<form class="form-horizontal" id="profit_loss" name="profit_loss" role="form">-->
+                                            <form class="form-horizontal" id="profit_loss" name="profit_loss" role="form">
                                                 <div class="form-group">
                                                     <label for="taxation" class="col-sm-6 control-label">Taxation</label>
                                                         <div class="col-sm-3 input-group">
@@ -1187,7 +1186,7 @@
                                                         </div>
                                                 </div>
                                                 <!--<button type="submit" class="btn btn-default">Sign in</button>-->
-<!--                                            </form>-->
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -1197,7 +1196,6 @@
                             </div>
                         </div>
                     </div>
-</form>
 
                 </div>
                 <!-- /.page-content -->

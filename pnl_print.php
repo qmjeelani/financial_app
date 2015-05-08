@@ -77,7 +77,7 @@ $heads = new Heads();
             <?php
             //include("views/top_nav.html");
             //include("views/left_nav.php");
-            $current_kpi = $kpi->getkpis();
+            $current_kpi = $kpi->getKPIbyYear('2014');
             ?>
             <!-- begin MAIN PAGE CONTENT -->
             <div id="page-wrapper">
@@ -121,15 +121,15 @@ $heads = new Heads();
                                     $head_id = $value->id;
                                     $head_name = $value->name;
                                     if($head_name == 'Rooms Department') {
-                                        $head_att = $heads->getHeadValues($head_id, '2008');
+                                        $head_att = $heads->getHeadValues($head_id, '2014');
                                     } else if($head_name == 'Food & Beverage Department') {
-                                        $head_att_fnb = $heads->getHeadValues($head_id, '2008');
+                                        $head_att_fnb = $heads->getHeadValues($head_id, '2014');
                                     } else if($head_name == 'Minor Operating Department') {
-                                        $head_att_min_op = $heads->getHeadValues($head_id, '2008');
+                                        $head_att_min_op = $heads->getHeadValues($head_id, '2014');
                                     } else if($head_name == 'Undistributed Operating Expenses') {
-                                        $head_att_expense = $heads->getHeadValues($head_id, '2008');
+                                        $head_att_expense = $heads->getHeadValues($head_id, '2014');
                                     } else if($head_name == 'Head Office Charges') {
-                                        $head_att_ho_charges = $heads->getHeadValues($head_id, '2008');
+                                        $head_att_ho_charges = $heads->getHeadValues($head_id, '2014');
                                     }
                                 }
                                 //$head_att = $heads->getHeadValues(1);

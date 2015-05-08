@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 //print_r($_SESSION); exit;
 ?>
 <head>
@@ -40,6 +40,8 @@ require_once("classes/kpi.php");
 require_once("classes/Heads.php");
 require_once("classes/Assumption.php");
 require_once("classes/Pnl.php");
+require_once("classes/Login.php");
+$login = new Login();
 /*if ($_SESSION['uid'] == '4' && $_SESSION['branch_id'] == 'All Branches' && !empty($_REQUEST['id'])) {
     $_SESSION['branch_id'] = $_REQUEST['id'];
 } else if ($_SESSION['uid'] == '4' && $_SESSION['branch_id'] != 'All Branches' && !empty($_REQUEST['id'])) {
@@ -48,6 +50,8 @@ require_once("classes/Pnl.php");
 if(in_array('Super User', $_SESSION['role'])  && !empty($_REQUEST['id'])  ) {
     $_SESSION['branch_id'] = $_REQUEST['id'];
 }
+
+if ($login->isUserLoggedIn() == true) {
 $assumption = new Assumption();
 $pnl = new Pnl();
 // load the KPI class
@@ -55,9 +59,9 @@ $pnl = new Pnl();
 /$assumption = new Assumption();
  * 
  */
-if (isset($_POST['submit'])) {
-    $pnl->savePnl();
-}
 $kpi = new kpi();
 $heads = new Heads();
-include("views/pnl.php");
+include("views/pnl_report.php");
+} else {
+    header('Location:login.html');
+}

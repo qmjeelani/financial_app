@@ -104,7 +104,7 @@
                 <div class="row">
                     <div class="panel-heading">
     <h1 class="panel-title">
-     Bar chart
+     Net Profit and Loss
      
   </h1>
 </div>
@@ -145,12 +145,12 @@
         <script type="text/javascript">
         //Morris Area Chart
 var sales_data = [{
-    date: '2008',
+    date: '2014',
     RoomsDepartment: 767165.28,
     FnBDepartment: 221453.96,
     MinorOperatingDepartment: 18867,
 }, {
-    date: '2009',
+    date: '2015',
     RoomsDepartment: 1252454.20,
     FnBDepartment: 320264.35,
     MinorOperatingDepartment: 20395,
@@ -198,7 +198,7 @@ Morris.Bar({
          ],
          xkey: 'y',
          ykeys: ['a', 'b'],
-         labels: ['2008', '2009']
+         labels: ['2014', '2015']
       });
 
         </script>
